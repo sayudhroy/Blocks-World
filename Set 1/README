@@ -1,0 +1,58 @@
+Software Used:	Steel Bank Common Lisp (Version 2.20)
+				with EMACS Editor (with SLIME integrated)
+
+The required functions are stored in the file named sroy8_src.lisp
+with the test cases stored in the file sroy8_test.lisp.
+
+To run the functions, please load the the sroy8_src.lisp first which 
+would load all the functions and then load the sroy8_test.lisp to run 
+the test cases.
+
+The functions that have been defined:
+
+1. occur-in:
+This function returns t if item is in list, else it returns nil
+Parameters for the function are:
+x - element being looked for
+y - list in which it is being looked in
+Objective of the function: Recursively checks if the element is present or not
+
+2. deriv1:
+Function to differentiate single-variable monomial
+Parameters for the function are:
+mono - the monomial which is being differentiated
+Local variables used in the function:
+c - local variable to store the value of the first item i.e. the constant
+i - local variable to store the value of the third item i.e. the power
+Objective of the function: Function returns a list with the differentiated values
+
+3. tree-yield:
+Function to find the list of atoms comprising the leaves of the tree
+Parameter for the function are:
+tree - the list to be returned with just the list of atoms
+
+4. find-match:
+Function that finds the first match of a predicate to an element of the facts list
+Parameter for the function are:
+pred - predicate which has to be searched on the facts list
+facts - the list of facts that is to be entered
+Objective of the function:
+Finds the first occurence of the matched predicate and returns the corresponding values
+for the match, thus the variables of the pred matched with those of the facts
+
+5. i) store-fact:
+ht - the hash table to store the facts with their keys
+Function that store a fact in a hash-table. If key exists already it updates the value
+by appending the new value to the old value, else it adds a new entry to the hash table
+Parameter for the function are:
+fact - used in the 'store-fact' function to take each fact and store it
+ht - used to store the facts and their corresponding keys (hashtable)
+in the hash table according to the requirement
+
+ii) store-facts:
+This function takes as input a series of facts and using mapcar maps them to the
+function above to store each of them in the hash table 'ht'
+Parameter for the function are:
+ht - used to store the facts and their corresponding keys (hashtable)
+facts - used in the 'store-facts' function to take all the facts and pass 
+it one by one to the 'store-fact' function to add records to the hash table

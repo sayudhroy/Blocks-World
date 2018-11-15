@@ -1,0 +1,104 @@
+Software Used:	Steel Bank Common Lisp (Version 2.20)
+		with EMACS Editor (with SLIME integrated)
+
+The required functions are stored in the file named sroy8_src.lisp
+with the test cases stored in the file sroy8_test.lisp.
+
+To run the test-cases, please load the sroy8_test.lisp. The function
+test() will then execute all the test-cases mentioned.
+
+To run the source code, please load the sroy8_src.lisp.
+
+Comment about a bar-shaped block being supported by two blocks:
+In our assumption of this blocks world, we have assumed that only one
+block can be placed on top of the other and likewise a stack of blocks
+on one top of the other is built. If we were to assume that two blocks
+maybe supported by one block, then a lot of enhancements have to be made
+to accomodate this. Currently the way the mark-depth function works, it
+recursively computes the key (on arg1 -) fact and then takes arg1 to be
+the arg2 value of the key which is in the form of (on arg1 arg2). But, if
+we have to place one block on two blocks, then it would have to mark both
+those blocks with their depths, and traverse on their corresponding stack
+since now, one stack could be split up into two. Similarly, same-stack
+function will need to be altered as two blocks which are below the big
+block are not in the same stack but each of them are in the same stack 
+with respect to the big block and the blocks it supports alternatively
+above it. In the clear-off function, if we were to clear one of the
+blocks in the stack which contains one of the two supporting blocks, 
+the big block would be dropped in the one fell swoop, which would in turn
+not only make the blocks underneath it clear, but also the other block
+(which is a part of a different stack until joined by the big block) has 
+to be made clear since the big block is being dropped. If the big block
+was to be placed on the table, both small blocks supporting it have to be
+made clear and marked with the respective depths, and all blocks on top 
+of it have to cleared off. The stack-up function will have to be altered
+as well in order to be able to take two arguments (optionally) in order
+to support the case where one big block maybe placed on two smaller
+blocks. All of these changes in the functions (and perhaps more), will
+enable us to achieve such a goal to be able to place a big block on two
+smaller blocks.
+
+The functions that have been defined:
+
+1. remove-fact:	Function that removes a fact given in the input 'fact'
+				from all the values of all keys of the hash-table given
+				in the input *kb-ht*.
+				Comment about approach: For finding the match of the
+				fact to be deleted I loop through the kb hash-table.
+				Alternatively could have used the gethash function
+				multiple times but this seemed more convenient to remove
+				the facts from multiple key-value pairs hence stuck to
+				this approach.
+
+2. clear-off:	Function that removes a block and however many blocks
+				above it from a stack and drops it on the table in one
+				fell swoop.
+
+3. order-relations:	Function that gives the bottom-up ordering of the
+					'on'-relations in the input and-ed list of relations.
+					Since, it is assumed that there has to be a 'table'
+					in goal-descr, it will always look for a 'table' at 
+					the first sweep of the list, if not present, will
+					return nil.
+
+4. isolate-obj-description:	Function that produces a list of properties
+							of a variable 'var' as entered as parameter
+							to the function. The properties include
+							monadic predicates only.
+
+5. stackup: Function that implements moving a specificied block1 onto a
+			clear block2 (which maybe the Table).
+
+6. achieve: Function that achieves a set goal to move blocks around
+			according to the description given in the input argument,
+			'goal-descr'.						
+
+# The following functions were used from Previous Lisp Assignments
+a. store-fact:	To store a single fact into a hash table specified by
+				the argument
+b. store-facts: Uses mapcar to store a series of facts in a hash-table
+				by calling the 'store-fact' function
+c. find-all-instances:	Function that retrives all the relations which
+						holds according to the knowledge base or not.
+d. mark-depth:	Function that recursively marks the block 'b' and its
+				supporting (i.e. the ones underneath) blocks with the
+				corresponding depth numbers.
+e. same-stack:	Function that recursively checks if two blocks are part
+				of the same stack or not by comparing the depth numbers
+				of both blocks and checking if they eventually turn out
+				to be the same block.
+f. cost:	Function that computes the cost of stacking up two blocks
+			where the first argument is to be stacked on the second
+			argument.
+g. stacking-candidates:	Function that returns a list of stacking
+						candidates in an ascending order of their
+						costs.				
+							
+# For simplification of the tasks in hand, the following helper functions
+were created:
+a. get-on-fact: This 'get-on-fact' function returns the fact from a
+				series of facts in the input argument 'descr' in which
+				something is placed ON the input argument 'obj'.
+b. changeGoal: 	This 'changeGoal' function changes the input argument
+				'orderList' by substituting all occurences of 'var' in
+				it with 'val'.

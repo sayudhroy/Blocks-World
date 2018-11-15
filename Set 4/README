@@ -1,0 +1,52 @@
+Software Used:	Steel Bank Common Lisp (Version 2.20)
+				with EMACS Editor (with SLIME integrated)
+
+The required functions are stored in the file named sroy8_src.lisp
+with the test cases stored in the file sroy8_test.lisp.
+
+To run the functions, please load the the sroy8_src.lisp first which 
+would load all the functions and then load the sroy8_test.lisp to run 
+the test cases.
+
+The functions that have been defined:
+
+1. find-whether:
+Function that returns whether the predications which are mentioned in the description
+input of the function hold according to the knowledge-base.
+Arguments of the function are:
+descr - a single predication or a conjunctive (and'ed) description of predications
+Objective of the function:	The purpose of this function is to determine whether the 'descr'
+							holds according to the *KB-HT* or not. If it holds, it returns a 
+							T (for "yes"), else it returns a NIL (for "no")
+							
+2. find-all-instances:
+Function to retrieve the answers for the questions asked in the previous function.
+Arguments of the function are:
+descr - a single predication or a conjunctive (and'ed) description of predications
+Objective of the function: The purpose of this function is to retrieve a list of all
+							instances or pairs of instances which hold according to 
+							the *KB-HT*. If it holds, it returns a the list, else it
+							returns a NIL (for "no satisfying relations" in KB)
+
+# The following functions were used from Previous Lisp Assignments
+a. update-table: Updates a hash table 'ht' with the key 'pred' and stores a	value 'val'
+b. store-fact: To store a single fact into a hash table specified by the argument
+c. store-facts: Uses mapcar to store a series of facts in a hash-table by calling the
+				'store-fact' function
+d. reorder: Reorders a list in the order of the indices as specified in the argument 'posns'.
+e. getFact: Changes the fact by replacing the positions of variables with '-'s.
+f. constrain-predicate: Constrains a predicate with another constraint at the positions defined
+						by the list 'posns'
+g. name-and-store-relation: Creates a new predicate in the knowledge-base which satisfies the
+							relations of constrain-predicate
+h. indexOf: Finds at which position the element 'ele' exists in the list 'lst'
+
+							
+# For simplification of the tasks in hand, the following helper functions were created:
+a. getVarPos: Finds the positions of all the variables in a list and returns a list of it
+b. changeReln: Changes the relation to one which can be referenced with the hash-table
+c. getMainLiteral: Finds the positive literal in the description which contains the maximum
+					variables
+d. getPosns: Finds the positions required for constraining the predicate 'pred' with the
+			predicate 'constraint' for using the function 'constrain-predicate'
+e. checkValidity: Checks the validity of the input for the function 'find-all-instances'

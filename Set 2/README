@@ -1,0 +1,95 @@
+Software Used:	Steel Bank Common Lisp (Version 2.20)
+				with EMACS Editor (with SLIME integrated)
+
+The required functions are stored in the file named sroy8_src.lisp
+with the test cases stored in the file sroy8_test.lisp.
+
+To run the functions, please load the the sroy8_src.lisp first which 
+would load all the functions and then load the sroy8_test.lisp to run 
+the test cases.
+
+NOTE:	For the functions store-fact and store-facts, a hash-table 'ht'
+	parameter has to be defined before using the functions. In the
+	test cases, I have defined the parameter before using the function.
+	Please do the same for running the functions with other test-cases.
+	
+	Also, for running the third function it is necessary, that the first function
+	be loaded on the system for it to run as it uses extract-constants to build
+	the domain.
+				
+The functions that have been defined:
+
+1. extract-contstants:
+Function that extracts a non-redundant list of constants
+from a list of atomic facts.
+Parameter for the function are:
+lst - used to store the list of facts entered by the user
+Objective of the function:	The purpose of the function is to use the mapcar function to 
+							create a list of the constants from the facts. Also, it uses
+							the remove-duplicates function to make the list irredundant.
+
+2. store-fact:
+ht - the hash table to store the facts with their keys
+Function that store a fact in a hash-table. If key exists already it updates the value
+by appending the new value to the old value, else it adds a new entry to the hash table
+Parameter for the function are:
+fact - used in the 'store-fact' function to take each fact and store it
+ht - used to store the facts and their corresponding keys (hashtable)
+in the hash table according to the requirement
+Objective of the function:	The purpose of the function is to store a fact in the hash
+							table in under four different keys. The keys being the
+							predicate itself, the entire fact and then each of the facts
+							paired with the predicate.
+
+3. store-facts:
+This function takes as input a series of facts and using mapcar maps them to the
+function above to store each of them in the hash table 'ht' and also build a domain
+of individual constants
+Parameter for the function are:
+facts - used in the 'store-facts' function to take all the facts and pass 
+it one by one to the 'store-fact' function to add records to the hash table
+ht - used to store the facts and their corresponding keys (hashtable)
+Objective of the function:	The purpose of the function is to use mapcar to store the facts
+							in the hash-table and also to create an irredundant list of
+							individual constants, calling it the domain. This domain is
+							declared globally and will be accessible outside the function.
+							
+4. project-relation:
+A function that projects an n-dimensional relation 'reln', producing a k-dimensional relation
+with 0<k<n.
+Parameters for the function are:
+reln - list of sub-lists each of n elements entered by user
+all-vars - list of variable names corresponding to the elements of the n-tuples
+some-vars - subset of all-vars in some order
+Objective of the function:	This function iterates over the 'reln' list
+							and reorders each of the
+							sub-lists into the order specified by some-vars. The order is fetched
+							by calling the 'order' helper function and the list is created and 
+							returned accordingly.
+
+5. constrain-relation:
+This function checks for each of the elements in constraints if the same element exists at 
+position 'posn' in 'reln'. If it does, it creates a list of all those sub-lists in 'reln' 
+and returns it.
+Parameters for the function are:
+reln - A list of sub-lists of elements entered by the user
+constr - A list of elements to be found at position 'posn' in each of the sub-lists  of the 'reln'
+posn - Position of where each of the 'constr' have to exist in 'reln
+Objective of the function:	This function is created to find an irredundant list of elements from
+							'reln' when each of the elements in 'constr' occur at position 'posn'.
+							
+# For simplification of the tasks in hand, the following helper functions were created:
+a. update-table: Updates a hash table 'ht' with the key 'pred' and stores a value 'val'.
+b. indexOf: Recursively finds the index of the element 'ele' in a list 'lst'.
+c. order: Returns the order in which the elements of some-vars are stored with respect to their
+			positions in all-vars.
+
+			
+			
+			
+			
+			
+			
+			
+			
+			

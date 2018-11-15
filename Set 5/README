@@ -1,0 +1,46 @@
+Software Used:	Steel Bank Common Lisp (Version 2.20)
+				with EMACS Editor (with SLIME integrated)
+
+The required functions are stored in the file named sroy8_src.lisp
+with the test cases stored in the file sroy8_test.lisp.
+
+To run the functions, please load the the sroy8_src.lisp first which 
+would load all the functions and then load the sroy8_test.lisp to run 
+the test cases.
+
+The functions that have been defined:
+
+1. mark-depth:	Function that recursively marks the block 'b' and its
+				supporting (i.e. the ones underneath) blocks with the
+				corresponding depth numbers.
+
+2. same-stack:	Function that recursively checks if two blocks are part
+				of the same stack or not by comparing the depth numbers
+				of both blocks and checking if they eventually turn out
+				to be the same block.
+
+3. cost:	Function that computes the cost of stacking up two blocks
+			where the first argument is to be stacked on the second
+			argument.
+
+4. stacking-candidates:	Function that returns a list of stacking
+						candidates in an ascending order of their
+						costs.				
+
+# The following functions were used from Previous Lisp Assignments
+a. store-fact:	To store a single fact into a hash table specified by
+				the argument
+b. store-facts: Uses mapcar to store a series of facts in a hash-table
+				by calling the 'store-fact' function
+c. find-all-instances:	Function that retrives all the relations which
+						holds according to the knowledge base or not.
+							
+# For simplification of the tasks in hand, the following helper
+ functions
+were created:
+a. isTable: Function that returns whether a given argument is a table or
+			not. It is assumed to be a table if it starts with the string
+			"TABLE" and is of length greater than four.
+b. getBlocks:	The function returns a list of blocks that match the
+				knowledge base with the description of the list, or
+				returns the list or block itself if needed.
